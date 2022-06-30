@@ -28,8 +28,6 @@ export default function SendToken() {
 
   const { status, chainId } = useConnectedMetaMask();
 
-  const [tokenAddress, setTokenAddress] = useState("");
-
   const { execute, loading } = useWeb3ApiQuery<{ approveAndSendToken: any }>({
     uri: wrapperUri,
     query: `
@@ -60,7 +58,7 @@ export default function SendToken() {
   )?.gateway;
 
   const onFinish = async (values: any) => {
-    const variables = { ...values, gatewayAddress, tokenAddress };
+    const variables = { ...values, gatewayAddress };
 
     console.log("sendToken params", variables);
 
