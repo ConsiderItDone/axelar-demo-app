@@ -1,11 +1,9 @@
 import { Button, Form, Input, Select, notification, Popover } from "antd";
-import { useWeb3ApiClient, useWeb3ApiQuery } from "@web3api/react";
-import CopyButton from "./CopyButton";
+import { useWeb3ApiQuery } from "@web3api/react";
 import { assetAddresses, dataSrc } from "../utils/gateways";
 import { toChainId, toNetworkName, wrapperUri } from "../utils";
-import { useConnectedMetaMask, useMetaMask } from "metamask-react";
+import { useConnectedMetaMask } from "metamask-react";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { useState } from "react";
 
 const { Option } = Select;
 const { Item } = Form;
@@ -20,6 +18,7 @@ const initialValues = {
   destinationChain: "Polygon Mumbai",
   destinationAddress: "0xd405aebF7b60eD2cb2Ac4497Bddd292DEe534E82",
   symbol: "aUSDC",
+  tokenAddress: assetAddresses.ausdc,
   amount: "1000000",
 };
 
