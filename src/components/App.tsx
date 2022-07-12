@@ -5,7 +5,7 @@ import Axelar from "./Axelar";
 import { axelarPlugin } from "@cidt/axelar-polywrap-js";
 import { Header } from "antd/lib/layout/layout";
 import { Button, Layout } from "antd";
-import { getEthereumPluginConfig, toChainId } from "../utils";
+import { getEthereumPluginConfig, toChainId, wrapperUri } from "../utils";
 
 function App() {
   const { connect, status, account, ethereum, chainId } = useMetaMask();
@@ -44,6 +44,14 @@ function App() {
               uri: "w3://ens/axelar.web3api.eth",
               // @ts-ignore
               plugin: axelarPlugin({ environment: "testnet" }),
+            },
+          ]}
+          envs={[
+            {
+              uri: wrapperUri,
+              common: {
+                chainId: Number(toChainId(chainId)),
+              },
             },
           ]}
         >

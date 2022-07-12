@@ -31,9 +31,9 @@ export const columns: ColumnsType<DataType> = [
   },
 ];
 export const assetAddresses: Record<string, string> = {
-  ausdc:"0x526f0A95EDC3DF4CBDB7bb37d4F7Ed451dB8e369", // "0x2dB6a31f973Ec26F5e17895f0741BB5965d5Ae15", //0xFff8fb0C13314c90805a808F48c7DFF37e95Eb16
-  usdc: "0x772dF70ff68C8dEa1863794824410e90e46Cd433",
-  
+  ausdc: "0x526f0A95EDC3DF4CBDB7bb37d4F7Ed451dB8e369", // "0x2dB6a31f973Ec26F5e17895f0741BB5965d5Ae15", //0xFff8fb0C13314c90805a808F48c7DFF37e95Eb16
+  usdc: "0x07865c6E87B9F70255377e024ace6630C1Eaa37F", //"0x772dF70ff68C8dEa1863794824410e90e46Cd433",
+  weth: "0xc778417E063141139Fce010982780140Aa0cD5Ab"
 };
 
 export const dataSrc: DataType[] = [
@@ -68,4 +68,3 @@ export const dataSrc: DataType[] = [
     gateway: "0xBF62ef1486468a6bd26Dd669C06db43dEd5B849B",
   },
 ];
-

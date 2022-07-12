@@ -18,8 +18,8 @@ export const chains = [
 ];
 
 export const wrapperUri =
-  "w3://ipfs/QmTkQ4osGtsHAmUfqpp6dNrDFZkGheG6K9eVpCLwFqN1e7";
-//"w3://ipfs/QmWfpQnQPxra1rwuScY3mn6Kj6wLRV91gfsnukizqu1DUz" || //updated
+  "w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q"; // w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q - with txOverrides
+//"w3://ipfs/QmWfpQnQPxra1rwuScY3mn6Kj6wLRV91gfsnukizqu1DUz"
 
 export const toChainId = (id: string) => {
   return id.replace("0x", "");
