@@ -55,8 +55,6 @@ export default function SendToken() {
       txOverrides: { gasLimit: "100000", gasPrice: null, value: null },
     };
 
-    console.log("sendToken params", variables);
-
     const { data, errors } = await execute(variables);
 
     if (errors) {
@@ -84,7 +82,6 @@ export default function SendToken() {
   };
 
   const onValueChanged = (values: any) => {
-    console.log(values);
     if (values.symbol) {
       const symbol = values.symbol?.toLowerCase();
       if (assetAddresses[symbol])
@@ -93,62 +90,62 @@ export default function SendToken() {
     }
   };
 
+  console.log(gatewayAddress);
+
   return (
     <Form
       name="sendToken"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
       initialValues={initialValues}
       form={form}
       onFinish={onFinish}
       autoComplete="off"
       onValuesChange={onValueChanged}
-      style={{ width: "600px" }}
     >
       <h2 style={{ width: "fit-content", margin: "10px auto" }}>Send Token</h2>
-      <Item
-        label={
-          <>
-            Gateway Address &nbsp;
+      <Item>
+        <Input
+          readOnly
+          prefix="Gateway Address"
+          value={gatewayAddress}
+          suffix={
             <Popover
               title="Current network"
               content={toNetworkName(String(chainId))}
             >
               <QuestionCircleOutlined />
             </Popover>
-          </>
-        }
-      >
-        <Input readOnly value={gatewayAddress} />
+          }
+        />
       </Item>
-      <Item label="To Chain" name="destinationChain" required>
+      <Item name="destinationChain" required>
         <Select
           onChange={(value) => {
             onChangeFormValue("destinationChain", value);
           }}
+          className="toChain"
         >
           {options}
         </Select>
       </Item>
-      <Item label="User Address" name="destinationAddress" required>
-        <Input />
+      <Item name="destinationAddress" required>
+        <Input prefix="User Address" />
       </Item>
-      <Item label="Asset" name="symbol" required>
-        <Input />
+      <Item name="symbol" required>
+        <Input prefix="Asset" />
       </Item>
-      <Item label="Token Address" name="tokenAddress">
-        <Input />
+      <Item name="tokenAddress">
+        <Input prefix="Token Address" />
       </Item>
-      <Item label="Amount" name="amount" required>
-        <Input />
+      <Item name="amount" required>
+        <Input prefix="Amount" />
       </Item>
-      <Item wrapperCol={{ span: 16, style: { marginLeft: "auto" } }}>
+      <Item>
         <Button
           htmlType="submit"
           type="primary"
           loading={loading}
           disabled={status !== "connected"}
-          style={{ margin: "0 auto", width: "100%" }}
+          style={{ width: "100%" }}
         >
           Send Token
         </Button>

@@ -1,14 +1,29 @@
+@font-face {
+  font-family: "Eurostile";
+  src: local("Eurostile-Demi-Oblique"),
+    url("./fonts/Eurostile LT Std Bold Extended 2.otf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Eurostile";
+  src: local("Eurostile-Demi-Oblique"),
+    url("./fonts/Eurostile-LT-Std-Oblique_16312.ttf") format("truetype");
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope&display=swap");
+
 body {
   margin: 0;
-  font-family: eurostile, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -30,4 +45,156 @@ code {
 
 .inputs label input:focus {
   outline: none;
+}
+
+h1 {
+  font-family: "Eurostile";
+  font-size: 72px;
+  font-weight: 700;
+}
+
+h2 {
+  font-family: "Eurostile";
+  font-size: 24px;
+  font-weight: 700;
+}
+.ant-layout {
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+}
+
+header.ant-layout-header {
+  display: flex;
+  justify-content: flex-end;
+  background: transparent;
+  height: fit-content;
+  padding: 20px;
+  align-items: center;
+}
+
+form.ant-form {
+  width: 520px !important;
+}
+
+.ant-form .ant-form-item {
+  width: 100%;
+}
+
+.ant-select-selector,
+.ant-input-affix-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 71px !important;
+  padding: 16px 8px 18px 20px !important;
+  background: rgba(11, 3, 1, 0.04) !important;
+  backdrop-filter: blur(40px);
+  border-radius: 12px !important;
+}
+
+.ant-select-dropdown,
+.ant-popover .ant-popover-content .ant-popover-inner,
+.ant-notification-notice {
+  background: rgba(11, 3, 1, 0.04) !important;
+  backdrop-filter: blur(40px);
+  border-radius: 12px !important;
+}
+.ant-select-item-option-selected {
+  background-color: #ff6900 !important;
+  color: white !important;
+}
+
+.ant-select-selector,
+.ant-select-selector:hover,
+.ant-input-affix-wrapper,
+.ant-input-affix-wrapper:hover,
+d {
+  border: none !important;
+}
+
+.ant-select-selection-item,
+.ant-input {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #0b0301;
+  overflow: visible;
+  background: transparent;
+}
+
+.ant-select-selector::before,
+.ant-input-prefix {
+  font-family: "Inter";
+  display: block;
+  color: #0b0301;
+  opacity: 0.5;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+.ant-input-affix-wrapper::before {
+  display: none;
+}
+
+.fromChain .ant-select-selector::before {
+  content: "From Chain";
+}
+
+.toChain .ant-select-selector::before {
+  content: "To Chain";
+}
+
+.assetSelect .ant-select-selector::before {
+  content: "FromChain";
+}
+
+.ant-input-suffix {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+.ant-btn.ant-btn-primary {
+  background: #ff6900;
+  border-radius: 88px;
+  height: 60px;
+  font-family: "Eurostile";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  border: none;
+}
+
+[data-icon="question-circle"] {
+  width: 22px;
+  height: 22px;
+}
+
+.circle {
+  position: absolute;
+  top: 0;
+  width: 80vw;
+  height: 80vw;
+  pointer-events: none;
+}
+
+.circle.left {
+  left: 0;
+  transform: translate(-60%, -50%);
+  background: #ff6900;
+  opacity: 0.12;
+  filter: blur(500px);
+}
+
+.circle.right {
+  right: 0;
+  transform: translate(53%, -20%);
+
+  background: #00d084;
+  opacity: 0.12;
+  filter: blur(500px);
 }

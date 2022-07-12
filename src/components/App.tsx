@@ -18,13 +18,7 @@ function App() {
 
   return (
     <Layout>
-      <Header
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
+      <Header>
         <Button onClick={handleConnect} type="primary">
           {status === "connected" ? account : "Connect"}
         </Button>
@@ -58,7 +52,17 @@ function App() {
           <Axelar />
         </Web3ApiProvider>
       )}
+      <BGCircles />
     </Layout>
+  );
+}
+
+export function BGCircles() {
+  return (
+    <>
+      <div className="circle left" />
+      <div className="circle right" />
+    </>
   );
 }
 

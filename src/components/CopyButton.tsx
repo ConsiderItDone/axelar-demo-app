@@ -9,7 +9,7 @@ const CopyButton = ({ value }: { value: string }) => {
     setCopied(true);
   };
 
-  return <Button onClick={onCopy}>{copied ? "Copied" : "Copy"}</Button>;
+  return <Button type="primary" style={{width:'100%', padding:'10px !important', height:'40px', marginTop:'10px'}} onClick={onCopy}>{copied ? "Copied" : "Copy"}</Button>;
 };
 
 export default CopyButton;

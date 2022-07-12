@@ -38,7 +38,6 @@ export default function GetDepositAddress() {
   });
 
   const onFinish = async (values: any) => {
-    console.log("values", values);
     const { data, errors } = await execute({ ...values, options: null });
     const depositAddress = data?.getDepositAddress;
 
@@ -53,6 +52,7 @@ export default function GetDepositAddress() {
     if (depositAddress) {
       notification.success({
         message: "Success",
+        duration: 600000,
         description: (
           <>
             <span>Your deposit address: {depositAddress}</span>
@@ -72,8 +72,6 @@ export default function GetDepositAddress() {
   return (
     <Form
       name="getDepositAddress"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
       initialValues={initialValues}
       onFinish={onFinish}
       autoComplete="off"
@@ -82,35 +80,40 @@ export default function GetDepositAddress() {
       <h2 style={{ width: "fit-content", margin: "10px auto" }}>
         Get Deposit Address
       </h2>
-      <Item label="From Chain" name="fromChain">
-        <Select onChange={(value) => onChangeFormValue("fromChain", value)}>
+      <Item name="fromChain">
+        <Select
+          onChange={(value) => onChangeFormValue("fromChain", value)}
+          className="fromChain"
+        >
           {options}
         </Select>
       </Item>
-      <Item label="To chain" name="toChain">
-        <Select onChange={(value) => onChangeFormValue("toChain", value)}>
+      <Item name="toChain">
+        <Select
+          onChange={(value) => onChangeFormValue("toChain", value)}
+          className="toChain"
+        >
           {options}
         </Select>
       </Item>
       <Item
-        label="Address"
         name="destinationAddress"
         required
         rules={[
           { required: true, message: "Please input destination address" },
         ]}
       >
-        <Input />
+        <Input prefix={"Address"} />
       </Item>
-      <Item label="Asset" name="asset">
+      <Item name="asset">
         <AssetSelect onChange={(value) => onChangeFormValue("asset", value)} />
       </Item>
-      <Item wrapperCol={{ span: 16, style: { marginLeft: "auto" } }}>
+      <Item>
         <Button
           htmlType="submit"
           type="primary"
           loading={loading}
-          style={{ margin: "0 auto", width: "100%" }}
+          style={{ width: "100%" }}
         >
           Get Deposit Address
         </Button>
