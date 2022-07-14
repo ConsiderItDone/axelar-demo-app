@@ -1,18 +1,28 @@
+const TerserPlugin = require('terser-webpack-plugin');
+
 module.exports = function override(config, env) {
   //do stuff with the webpack config...
-  const appConfig = {
+  return {
     ...config,
-    stats: { warnings: false },
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            keep_fnames: true,
+            keep_classnames: true,
+          },
+        }),
+      ],
+    },
+    stats: {warnings: false},
     ignoreWarnings: [/Failed to parse source map/],
     resolve: {
       ...config.resolve,
       fallback: {
         fs: false,
-        path: false, //require.resolve('path'),
-        url: false, //require.resolve('url'),
+        path: require.resolve('path-browserify'),
+        url: require.resolve('url'),
       },
     },
   };
-
-  return appConfig;
 };
