@@ -150,7 +150,7 @@ d {
 }
 
 .assetSelect .ant-select-selector::before {
-  content: "FromChain";
+  content: "Asset";
 }
 
 .ant-input-suffix {
