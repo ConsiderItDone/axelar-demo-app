@@ -61,6 +61,7 @@ h2 {
 .ant-layout {
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
   background-color: white;
 }
 
