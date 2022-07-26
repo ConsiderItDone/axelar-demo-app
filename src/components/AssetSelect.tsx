@@ -1,4 +1,4 @@
-import { Divider, Input, Select, Space, Typography } from "antd";
+import { Button, Divider, Input, Select, Space, Typography } from "antd";
 import React, { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -6,7 +6,7 @@ const { Option } = Select;
 
 let index = 0;
 
-export const assets = ["UAUSDC", "UAXL", "ULUNA", "WETH-WEI", "UAUSDC"];
+export const assets = ["UAUSDC", "UAXL", "ULUNA", "WETH-WEI"];
 
 export default function AssetSelect({
   onChange,
@@ -29,7 +29,7 @@ export default function AssetSelect({
     <Select
       defaultValue={"uausdc"}
       onChange={onChange}
-      className='assetSelect'
+      className="assetSelect"
       dropdownRender={(menu) => (
         <>
           {menu}
@@ -40,9 +40,16 @@ export default function AssetSelect({
               value={name}
               onChange={onNameChange}
             />
-            <Typography.Link onClick={addItem} style={{ whiteSpace: "nowrap" }}>
+            <Button
+              disabled={
+                !name || name.length < 3 || !!items.find((i) => i === name)
+              }
+              type="primary"
+              onClick={addItem}
+              style={{ whiteSpace: "nowrap", height: "100%" }}
+            >
               <PlusOutlined /> Add item
-            </Typography.Link>
+            </Button>
           </Space>
         </>
       )}

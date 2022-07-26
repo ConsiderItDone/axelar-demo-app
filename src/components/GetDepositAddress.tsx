@@ -3,6 +3,7 @@ import AssetSelect from "./AssetSelect";
 import { useWeb3ApiQuery } from "@web3api/react";
 import CopyButton from "./CopyButton";
 import { chains, wrapperUri } from "../utils";
+import { useMetaMask } from "metamask-react";
 
 const { Option } = Select;
 const { Item } = Form;
@@ -16,7 +17,6 @@ const options = chains.map((chain) => (
 const initialValues = {
   fromChain: "terra",
   toChain: "avalanche",
-  destinationAddress: "0xd405aebF7b60eD2cb2Ac4497Bddd292DEe534E82",
   asset: "uausdc",
 };
 
@@ -67,7 +67,6 @@ export default function GetDepositAddress() {
   const onChangeFormValue = (itemName: string, value: string) => {
     form.setFieldsValue({ [itemName]: value });
   };
-  //const client = useClien
 
   return (
     <Form
@@ -103,7 +102,7 @@ export default function GetDepositAddress() {
           { required: true, message: "Please input destination address" },
         ]}
       >
-        <Input prefix={"Address"} />
+        <Input prefix={"Destination address"} />
       </Item>
       <Item name="asset">
         <AssetSelect onChange={(value) => onChangeFormValue("asset", value)} />

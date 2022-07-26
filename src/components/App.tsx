@@ -4,8 +4,13 @@ import { useMetaMask } from "metamask-react";
 import Axelar from "./Axelar";
 import { axelarPlugin } from "@cidt/axelar-polywrap-js";
 import { Header } from "antd/lib/layout/layout";
-import { Button, Layout } from "antd";
-import { getEthereumPluginConfig, toChainId, wrapperUri } from "../utils";
+import { Button, Layout, notification } from "antd";
+import {
+  fromHex,
+  getEthereumPluginConfig,
+  toChainId,
+  wrapperUri,
+} from "../utils";
 
 function App() {
   const { connect, status, account, ethereum, chainId } = useMetaMask();
@@ -13,6 +18,13 @@ function App() {
   const handleConnect = () => {
     if (status !== "connected") {
       connect();
+    } else {
+      navigator.clipboard.writeText(account);
+      notification.success({
+        message: "Success",
+        duration: 20000,
+        description: `${account} Copied to Clipboard`,
+      });
     }
   };
 
@@ -44,7 +56,7 @@ function App() {
             {
               uri: wrapperUri,
               common: {
-                chainId: Number(toChainId(chainId)),
+                chainId: Number(fromHex(chainId)),
               },
             },
           ]}

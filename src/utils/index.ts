@@ -21,14 +21,12 @@ export const wrapperUri =
   "w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q"; // w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q - with txOverrides
 //"w3://ipfs/QmWfpQnQPxra1rwuScY3mn6Kj6wLRV91gfsnukizqu1DUz"
 
-export const toChainId = (id: string) => {
-  return id.replace("0x", "");
+export const toChainId = (number: number): string => {
+  return "0x" + toHex(number);
 };
 
-export const toNetworkName = (id: string) => {
-  const chainId = toChainId(id);
-  return dataSrc.find((chain) => chain.chainId.toString() === chainId)?.name;
-};
+export const toHex = (number: number) => "0x" + number.toString(16);
+export const fromHex = (hex: string) => parseInt(hex.replace("0x", ""), 16);
 
 export const getEthereumPluginConfig = (
   chainId: string,
