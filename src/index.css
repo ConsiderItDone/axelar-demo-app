@@ -199,3 +199,9 @@ d {
   opacity: 0.12;
   filter: blur(500px);
 }
+
+.sticky {
+  position: fixed;
+  top: 0;
+  right: 0;
+}

@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Layout>
-      <Header>
+      <Header className="sticky">
         <Button onClick={handleConnect} type="primary">
           {status === "connected" ? account : "Connect"}
         </Button>
