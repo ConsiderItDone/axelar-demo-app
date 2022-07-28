@@ -15,7 +15,7 @@ const options = chains.map((chain) => (
 ));
 
 const initialValues = {
-  fromChain: "terra",
+  fromChain: "axelar",
   toChain: "avalanche",
   asset: "uausdc",
 };
