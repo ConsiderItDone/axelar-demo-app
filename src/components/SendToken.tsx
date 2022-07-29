@@ -28,7 +28,7 @@ const getAssetOptions = (networkName?: string) => {
 
 const initialValues = {
   destinationChain: "Polygon Mumbai",
-  amount: "1000000",
+  amount: "1",
 };
 
 export default function SendToken() {
@@ -61,14 +61,16 @@ export default function SendToken() {
 
   const onFinish = async (values: any) => {
     const sourceChain = network;
+    const asset = sourceChain.assets.find(
+      (asset) => asset.name === values.asset
+    )!;
 
     const variables = {
       ...values,
       gatewayAddress: sourceChain.gateway,
       symbol: values.asset,
-      tokenAddress: sourceChain.assets.find(
-        (asset) => asset.name === values.asset
-      )?.address,
+      amount: (Number(values.amount) * Math.pow(10, asset.decimals)).toString(),
+      tokenAddress: asset.address,
       txOverrides: { gasLimit: "100000", gasPrice: null, value: null },
     };
 
