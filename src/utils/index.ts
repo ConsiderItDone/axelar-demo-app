@@ -1,6 +1,4 @@
-import { ConnectionConfigs } from "@web3api/client-js/build/pluginConfigs/Ethereum";
-import { dataSrc } from "./gateways";
-import {} from "ethers";
+import { ConnectionConfigs } from "@polywrap/client-js/build/pluginConfigs/Ethereum";
 export const chains = [
   "Avalanche",
   "Axelar",
@@ -18,7 +16,7 @@ export const chains = [
 ];
 
 export const wrapperUri =
-  "w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q"; // w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q - with txOverrides
+  "wrap://ipfs/QmTbxoFR4n3Dzyx49Nuge8JAub156kpvdidTWc1T5eYTpo"; // w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q - with txOverrides
 //"w3://ipfs/QmWfpQnQPxra1rwuScY3mn6Kj6wLRV91gfsnukizqu1DUz"
 
 export const toChainId = (number: number): string => {

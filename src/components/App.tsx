@@ -1,16 +1,11 @@
-import { Web3ApiProvider } from "@web3api/react";
-import { ethereumPlugin } from "@web3api/ethereum-plugin-js";
+import { PolywrapProvider } from "@polywrap/react";
+import { ethereumPlugin } from "@polywrap/ethereum-plugin-js";
 import { useMetaMask } from "metamask-react";
 import Axelar from "./Axelar";
 import { axelarPlugin } from "@cidt/axelar-polywrap-js";
 import { Header } from "antd/lib/layout/layout";
 import { Button, Layout, notification } from "antd";
-import {
-  fromHex,
-  getEthereumPluginConfig,
-  toChainId,
-  wrapperUri,
-} from "../utils";
+import { fromHex, getEthereumPluginConfig, wrapperUri } from "../utils";
 
 function App() {
   const { connect, status, account, ethereum, chainId } = useMetaMask();
@@ -36,33 +31,33 @@ function App() {
         </Button>
       </Header>
       {status === "connected" && chainId && account && (
-        // @ts-ignore
-        <Web3ApiProvider
+        //@ts-ignore
+        <PolywrapProvider
           plugins={[
             {
-              uri: "w3://ens/ethereum.web3api.eth",
+              uri: "wrap://ens/ethereum.polywrap.eth",
               plugin: ethereumPlugin({
                 networks: getEthereumPluginConfig(chainId, ethereum, account),
                 defaultNetwork: "ropsten",
               }),
             },
             {
-              uri: "w3://ens/axelar.web3api.eth",
-              // @ts-ignore
+              uri: "wrap://ens/axelar.polywrap.eth",
+              //@ts-ignore
               plugin: axelarPlugin({ environment: "testnet" }),
             },
           ]}
           envs={[
             {
               uri: wrapperUri,
-              common: {
+              env: {
                 chainId: Number(fromHex(chainId)),
               },
             },
           ]}
         >
           <Axelar />
-        </Web3ApiProvider>
+        </PolywrapProvider>
       )}
       <BGCircles />
     </Layout>

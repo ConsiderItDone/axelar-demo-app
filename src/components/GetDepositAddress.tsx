@@ -1,9 +1,9 @@
 import { Button, Form, Input, Select, notification } from "antd";
 import AssetSelect from "./AssetSelect";
-import { useWeb3ApiQuery } from "@web3api/react";
+import { usePolywrapQuery } from "@polywrap/react";
 import CopyButton from "./CopyButton";
-import { chains, wrapperUri } from "../utils";
-import { useMetaMask } from "metamask-react";
+import { chains, fromHex, wrapperUri } from "../utils";
+import { useConnectedMetaMask, useMetaMask } from "metamask-react";
 
 const { Option } = Select;
 const { Item } = Form;
@@ -22,8 +22,8 @@ const initialValues = {
 
 export default function GetDepositAddress() {
   const [form] = Form.useForm();
-
-  const { execute, loading } = useWeb3ApiQuery<{ getDepositAddress: string }>({
+  const { chainId } = useConnectedMetaMask();
+  const { execute, loading } = usePolywrapQuery<{ getDepositAddress: string }>({
     uri: wrapperUri,
     query: `
       query {
@@ -33,12 +33,17 @@ export default function GetDepositAddress() {
           destinationAddress: $destinationAddress
           asset: $asset
           options: $options
+          
         )
       }`,
   });
 
   const onFinish = async (values: any) => {
-    const { data, errors } = await execute({ ...values, options: null });
+    const { data, errors } = await execute({
+      ...values,
+      options: null,
+      connection: { networkNameOrChainId: Number(fromHex(chainId)) },
+    });
     const depositAddress = data?.getDepositAddress;
 
     if (errors) {

@@ -1,8 +1,8 @@
-import { Button, Form, Input, Select, notification, Popover } from "antd";
-import { useWeb3ApiQuery } from "@web3api/react";
+import { Button, Form, Input, Select, notification } from "antd";
+import { usePolywrapQuery } from "@polywrap/react";
 
-import { assetAddresses, dataSrc } from "../utils/gateways";
-import { wrapperUri } from "../utils";
+import { dataSrc } from "../utils/gateways";
+import { fromHex, wrapperUri } from "../utils";
 import { useConnectedMetaMask } from "metamask-react";
 import { useEffect, useMemo } from "react";
 
@@ -36,7 +36,7 @@ export default function SendToken() {
 
   const { status, chainId, switchChain, addChain } = useConnectedMetaMask();
 
-  const { execute, loading } = useWeb3ApiQuery<{ approveAndSendToken: any }>({
+  const { execute, loading } = usePolywrapQuery<{ approveAndSendToken: any }>({
     uri: wrapperUri,
     query: `
       mutation {
@@ -48,6 +48,7 @@ export default function SendToken() {
           gatewayAddress: $gatewayAddress
           tokenAddress: $tokenAddress
           txOverrides: $txOverrides
+          connection: $connection
         )
       }`,
   });
@@ -72,6 +73,7 @@ export default function SendToken() {
       amount: (Number(values.amount) * Math.pow(10, asset.decimals)).toString(),
       tokenAddress: asset.address,
       txOverrides: { gasLimit: "100000", gasPrice: null, value: null },
+      connection: { networkNameOrChainId: Number(fromHex(chainId)) },
     };
 
     const { data, errors } = await execute(variables);
@@ -103,15 +105,6 @@ export default function SendToken() {
     form.resetFields(["asset"]);
   }, [chainId]);
 
-  const onValueChanged = (values: any) => {
-    if (values.symbol) {
-      const symbol = values.symbol?.toLowerCase();
-      if (assetAddresses[symbol])
-        onChangeFormValue("tokenAddress", assetAddresses[symbol]);
-      else onChangeFormValue("tokenAddress", "");
-    }
-  };
-
   const onChangeSourceNetwork = async (networkName: string) => {
     const network = dataSrc.find((chain) => chain.name === networkName)!;
 
@@ -137,7 +130,6 @@ export default function SendToken() {
       form={form}
       onFinish={onFinish}
       autoComplete="off"
-      onValuesChange={onValueChanged}
     >
       <h2 style={{ width: "fit-content", margin: "10px auto" }}>Send Token</h2>
       <Item name="fromChain" required>
