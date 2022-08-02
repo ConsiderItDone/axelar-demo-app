@@ -32,7 +32,8 @@ module.exports = function override(config, env) {
         "http": require.resolve("stream-http"),
         "https": require.resolve("https-browserify"),
         "os": require.resolve("os-browserify"),
-        "url": require.resolve("url")
+        "url": require.resolve("url"),
+        buffer: require.resolve('buffer/'),
       },
     },
     plugins: [
@@ -43,6 +44,9 @@ module.exports = function override(config, env) {
       new Dotenv(),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(process.env)
+      }),
+      new webpack.ProvidePlugin({
+        Buffer: ['buffer', 'Buffer'],
       }),
     ]
   };

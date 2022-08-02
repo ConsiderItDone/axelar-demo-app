@@ -1,9 +1,14 @@
 import { Button, Form, Input, Select, notification } from "antd";
 import AssetSelect from "./AssetSelect";
-import { usePolywrapQuery } from "@polywrap/react";
+import {
+  usePolywrapClient,
+  usePolywrapInvoke,
+  usePolywrapQuery,
+} from "@polywrap/react";
 import CopyButton from "./CopyButton";
 import { chains, fromHex, wrapperUri } from "../utils";
 import { useConnectedMetaMask, useMetaMask } from "metamask-react";
+const Buffer = require('buffer')
 
 const { Option } = Select;
 const { Item } = Form;
@@ -23,7 +28,11 @@ const initialValues = {
 export default function GetDepositAddress() {
   const [form] = Form.useForm();
   const { chainId } = useConnectedMetaMask();
-  const { execute, loading } = usePolywrapQuery<{ getDepositAddress: string }>({
+  const { execute, loading } = usePolywrapInvoke<string>({
+    uri: wrapperUri,
+    method: "getDepositAddress",
+  });
+  const {} = usePolywrapQuery<{ getDepositAddress: string }>({
     uri: wrapperUri,
     query: `
       query {
@@ -37,20 +46,22 @@ export default function GetDepositAddress() {
         )
       }`,
   });
-
+  const client = usePolywrapClient();
   const onFinish = async (values: any) => {
-    const { data, errors } = await execute({
+    const res = await client.resolveUri(wrapperUri);
+    console.log(Buffer);
+    const { data, error } = await execute({
       ...values,
       options: null,
       connection: { networkNameOrChainId: Number(fromHex(chainId)) },
     });
-    const depositAddress = data?.getDepositAddress;
+    const depositAddress = data;
 
-    if (errors) {
-      console.log(errors);
+    if (error) {
+      console.log(error);
       notification.error({
         message: "Error",
-        description: errors[0].message,
+        description: error.message,
       });
     }
 
