@@ -17,7 +17,7 @@ export const chains = [
 ];
 
 export const wrapperUri =
-  "wrap://ipfs/QmTbxoFR4n3Dzyx49Nuge8JAub156kpvdidTWc1T5eYTpo";
+  "wrap://ipfs/Qmawb9UuXEFDdirz7vx13G4RbYxvtJQ8tis9gKvFi7ASYg";
 
 export const toChainId = (number: number): string => {
   return "0x" + toHex(number);
@@ -40,7 +40,7 @@ export const getPluginsConfig = (
           signer: account,
         },
       },
-      defaultNetwork: "ropsten",
+      defaultNetwork: chainId,
     }),
   },
   {

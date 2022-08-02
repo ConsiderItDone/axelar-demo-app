@@ -29,8 +29,8 @@ function App() {
         </Button>
       </Header>
       {status === "connected" && chainId && account && (
-        //@ts-ignore
         <PolywrapProvider
+          //@ts-ignore
           plugins={getPluginsConfig(chainId, ethereum, account)}
         >
           <Axelar />

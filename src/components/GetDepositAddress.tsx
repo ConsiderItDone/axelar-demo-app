@@ -8,7 +8,7 @@ import {
 import CopyButton from "./CopyButton";
 import { chains, fromHex, wrapperUri } from "../utils";
 import { useConnectedMetaMask, useMetaMask } from "metamask-react";
-const Buffer = require('buffer')
+const Buffer = require("buffer");
 
 const { Option } = Select;
 const { Item } = Form;
@@ -32,28 +32,12 @@ export default function GetDepositAddress() {
     uri: wrapperUri,
     method: "getDepositAddress",
   });
-  const {} = usePolywrapQuery<{ getDepositAddress: string }>({
-    uri: wrapperUri,
-    query: `
-      query {
-        getDepositAddress(
-          fromChain: $fromChain
-          toChain: $toChain
-          destinationAddress: $destinationAddress
-          asset: $asset
-          options: $options
-          
-        )
-      }`,
-  });
-  const client = usePolywrapClient();
+
   const onFinish = async (values: any) => {
-    const res = await client.resolveUri(wrapperUri);
-    console.log(Buffer);
     const { data, error } = await execute({
       ...values,
       options: null,
-      connection: { networkNameOrChainId: Number(fromHex(chainId)) },
+      connection: null,
     });
     const depositAddress = data;
 
