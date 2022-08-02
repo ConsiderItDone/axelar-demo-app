@@ -1,10 +1,8 @@
 import GetDepositAddress from "./GetDepositAddress";
-import { Button, Image, Layout } from "antd";
-import { useMetaMask } from "metamask-react";
 import SendToken from "./SendToken";
-import { Content, Header } from "antd/lib/layout/layout";
+import { Content } from "antd/lib/layout/layout";
 import logo from "../images/logo.png";
-import waves from "../images/waves.svg";
+import Lines from "./Lines";
 
 export default function Axelar() {
   return (
@@ -15,13 +13,20 @@ export default function Axelar() {
           alignContent: "center",
           justifyContent: "center",
           maxWidth: "1080px",
+          gap:'170px',
           margin: "100px auto 0",
         }}
       >
-        <h1>Polywrap Axelar Integration</h1>
+        <h1>
+          Polywrap
+          <br />
+          <span className="blue">Axelar</span>
+          <br />
+          Integration
+        </h1>
         <img src={logo} />
       </div>
-      <img src={waves} style={{ width: "100%", marginTop: "-78px" }} />
+      <Lines />
       <div
         style={{
           display: "flex",

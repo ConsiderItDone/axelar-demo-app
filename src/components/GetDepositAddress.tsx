@@ -1,9 +1,14 @@
 import { Button, Form, Input, Select, notification } from "antd";
 import AssetSelect from "./AssetSelect";
-import { useWeb3ApiQuery } from "@web3api/react";
+import {
+  usePolywrapClient,
+  usePolywrapInvoke,
+  usePolywrapQuery,
+} from "@polywrap/react";
 import CopyButton from "./CopyButton";
-import { chains, wrapperUri } from "../utils";
-import { useMetaMask } from "metamask-react";
+import { chains, fromHex, wrapperUri } from "../utils";
+import { useConnectedMetaMask, useMetaMask } from "metamask-react";
+const Buffer = require('buffer')
 
 const { Option } = Select;
 const { Item } = Form;
@@ -22,8 +27,12 @@ const initialValues = {
 
 export default function GetDepositAddress() {
   const [form] = Form.useForm();
-
-  const { execute, loading } = useWeb3ApiQuery<{ getDepositAddress: string }>({
+  const { chainId } = useConnectedMetaMask();
+  const { execute, loading } = usePolywrapInvoke<string>({
+    uri: wrapperUri,
+    method: "getDepositAddress",
+  });
+  const {} = usePolywrapQuery<{ getDepositAddress: string }>({
     uri: wrapperUri,
     query: `
       query {
@@ -33,19 +42,26 @@ export default function GetDepositAddress() {
           destinationAddress: $destinationAddress
           asset: $asset
           options: $options
+          
         )
       }`,
   });
-
+  const client = usePolywrapClient();
   const onFinish = async (values: any) => {
-    const { data, errors } = await execute({ ...values, options: null });
-    const depositAddress = data?.getDepositAddress;
+    const res = await client.resolveUri(wrapperUri);
+    console.log(Buffer);
+    const { data, error } = await execute({
+      ...values,
+      options: null,
+      connection: { networkNameOrChainId: Number(fromHex(chainId)) },
+    });
+    const depositAddress = data;
 
-    if (errors) {
-      console.log(errors);
+    if (error) {
+      console.log(error);
       notification.error({
         message: "Error",
-        description: errors[0].message,
+        description: error.message,
       });
     }
 
