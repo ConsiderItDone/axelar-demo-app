@@ -10,7 +10,7 @@ export const chains = [
   "Fantom",
   "Injective",
   "Juno",
-  "Moonbeam",
+  //"Moonbeam",
   "Osmosis",
   "Polygon",
   "Terra",

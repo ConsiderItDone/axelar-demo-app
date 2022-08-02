@@ -211,7 +211,7 @@ export const dataSrc: DataType[] = [
       },
     ],
   },
-  {
+/*   {
     key: "5",
     name: "Moonbeam",
     chainId: toChainId(1284),
@@ -234,7 +234,7 @@ export const dataSrc: DataType[] = [
         address: "0xAcc15dC74880C9944775448304B263D191c6077F",
       },
     ],
-  },
+  }, */
   {
     key: "6",
     name: "Ethereum Ropsten",
