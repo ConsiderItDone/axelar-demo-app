@@ -13,10 +13,17 @@ export default function Axelar() {
           alignContent: "center",
           justifyContent: "center",
           maxWidth: "1080px",
+          gap:'170px',
           margin: "100px auto 0",
         }}
       >
-        <h1>Polywrap Axelar Integration</h1>
+        <h1>
+          Polywrap
+          <br />
+          <span className="blue">Axelar</span>
+          <br />
+          Integration
+        </h1>
         <img src={logo} />
       </div>
       <Lines />
