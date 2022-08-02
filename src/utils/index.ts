@@ -1,4 +1,5 @@
-import { ConnectionConfigs } from "@polywrap/client-js/build/pluginConfigs/Ethereum";
+import { axelarPlugin } from "@cidt/axelar-polywrap-js";
+import { ethereumPlugin } from "@polywrap/ethereum-plugin-js";
 export const chains = [
   "Avalanche",
   "Axelar",
@@ -16,8 +17,7 @@ export const chains = [
 ];
 
 export const wrapperUri =
-  "wrap://ipfs/QmTbxoFR4n3Dzyx49Nuge8JAub156kpvdidTWc1T5eYTpo"; // w3://ipfs/QmRBmNJF7LaXR7updfBJfeiWVGfWcaux9tEkiyYwqZ2X4q - with txOverrides
-//"w3://ipfs/QmWfpQnQPxra1rwuScY3mn6Kj6wLRV91gfsnukizqu1DUz"
+  "wrap://ipfs/QmTbxoFR4n3Dzyx49Nuge8JAub156kpvdidTWc1T5eYTpo";
 
 export const toChainId = (number: number): string => {
   return "0x" + toHex(number);
@@ -26,15 +26,26 @@ export const toChainId = (number: number): string => {
 export const toHex = (number: number) => "0x" + number.toString(16);
 export const fromHex = (hex: string) => parseInt(hex.replace("0x", ""), 16);
 
-export const getEthereumPluginConfig = (
+export const getPluginsConfig = (
   chainId: string,
   provider: any,
   account: string
-): ConnectionConfigs => {
-  return {
-    [chainId]: {
-      provider: provider,
-      signer: account,
-    },
-  };
-};
+) => [
+  {
+    uri: "wrap://ens/ethereum.polywrap.eth",
+    plugin: ethereumPlugin({
+      networks: {
+        [chainId]: {
+          provider: provider,
+          signer: account,
+        },
+      },
+      defaultNetwork: "ropsten",
+    }),
+  },
+  {
+    uri: "wrap://ens/axelar.polywrap.eth",
+    //@ts-ignore
+    plugin: axelarPlugin({ environment: "testnet" }),
+  },
+];
