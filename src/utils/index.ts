@@ -16,8 +16,7 @@ export const chains = [
   "Terra",
 ];
 
-export const wrapperUri =
-  "wrap://ipfs/Qmawb9UuXEFDdirz7vx13G4RbYxvtJQ8tis9gKvFi7ASYg";
+export const wrapperUri = "wrap://ipfs/Qmawb9UuXEFDdirz7vx13G4RbYxvtJQ8tis9gKvFi7ASYg"; // "wrap://ipfs/QmWiavJxZuecF369jeF2H3oi2BGw6jXg4xz82TMGpueRA7"
 
 export const toChainId = (number: number): string => {
   return "0x" + toHex(number);

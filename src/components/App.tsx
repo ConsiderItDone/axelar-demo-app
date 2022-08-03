@@ -3,7 +3,7 @@ import { useMetaMask } from "metamask-react";
 import Axelar from "./Axelar";
 import { Header } from "antd/lib/layout/layout";
 import { Button, Layout, notification } from "antd";
-import { getPluginsConfig } from "../utils";
+import { fromHex, getPluginsConfig } from "../utils";
 
 function App() {
   const { connect, status, account, ethereum, chainId } = useMetaMask();
@@ -31,7 +31,11 @@ function App() {
       {status === "connected" && chainId && account && (
         <PolywrapProvider
           //@ts-ignore
-          plugins={getPluginsConfig(chainId, ethereum, account)}
+          plugins={getPluginsConfig(
+            fromHex(chainId).toString(),
+            ethereum,
+            account
+          )}
         >
           <Axelar />
         </PolywrapProvider>
