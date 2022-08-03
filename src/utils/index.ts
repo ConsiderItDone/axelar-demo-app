@@ -10,14 +10,13 @@ export const chains = [
   "Fantom",
   "Injective",
   "Juno",
-  "Moonbeam",
+  //"Moonbeam",
   "Osmosis",
   "Polygon",
   "Terra",
 ];
 
-export const wrapperUri =
-  "wrap://ipfs/QmTbxoFR4n3Dzyx49Nuge8JAub156kpvdidTWc1T5eYTpo";
+export const wrapperUri = "wrap://ipfs/Qmawb9UuXEFDdirz7vx13G4RbYxvtJQ8tis9gKvFi7ASYg"; // "wrap://ipfs/QmWiavJxZuecF369jeF2H3oi2BGw6jXg4xz82TMGpueRA7"
 
 export const toChainId = (number: number): string => {
   return "0x" + toHex(number);
@@ -40,7 +39,7 @@ export const getPluginsConfig = (
           signer: account,
         },
       },
-      defaultNetwork: "ropsten",
+      defaultNetwork: chainId,
     }),
   },
   {

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select, notification } from "antd";
-import { usePolywrapQuery } from "@polywrap/react";
+import { usePolywrapInvoke, usePolywrapQuery } from "@polywrap/react";
 
 import { dataSrc } from "../utils/gateways";
 import { fromHex, wrapperUri } from "../utils";
@@ -36,21 +36,9 @@ export default function SendToken() {
 
   const { status, chainId, switchChain, addChain } = useConnectedMetaMask();
 
-  const { execute, loading } = usePolywrapQuery<{ approveAndSendToken: any }>({
+  const { execute, loading } = usePolywrapInvoke<{ transactionHash: string }>({
     uri: wrapperUri,
-    query: `
-      mutation {
-        approveAndSendToken(
-          destinationChain: $destinationChain
-          destinationAddress: $destinationAddress
-          symbol: $symbol
-          amount: $amount
-          gatewayAddress: $gatewayAddress
-          tokenAddress: $tokenAddress
-          txOverrides: $txOverrides
-          connection: $connection
-        )
-      }`,
+    method: "approveAndSendToken",
   });
 
   const network = useMemo(() => {
@@ -73,26 +61,26 @@ export default function SendToken() {
       amount: (Number(values.amount) * Math.pow(10, asset.decimals)).toString(),
       tokenAddress: asset.address,
       txOverrides: { gasLimit: "100000", gasPrice: null, value: null },
-      connection: { networkNameOrChainId: Number(fromHex(chainId)) },
+      connection: null,
     };
 
-    const { data, errors } = await execute(variables);
+    const { data, error } = await execute(variables);
 
-    if (errors) {
-      console.log(errors);
+    if (error) {
+      console.log(error);
       notification.error({
         message: "Error",
-        description: errors[0].message,
+        description: error.message,
       });
       return;
     }
 
-    const result = data?.approveAndSendToken?.transactionHash;
+    const result = data?.transactionHash;
 
     if (result) {
       notification.success({
         message: "Success",
-        description: `Your transaction receipt is: ${result}`,
+        description: `Your transaction hash is: ${result}`,
       });
     }
   };
