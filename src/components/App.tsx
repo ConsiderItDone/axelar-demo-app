@@ -1,12 +1,10 @@
-import { PolywrapProvider } from "@polywrap/react";
 import { useMetaMask } from "metamask-react";
 import Axelar from "./Axelar";
 import { Header } from "antd/lib/layout/layout";
 import { Button, Layout, notification } from "antd";
-import { fromHex, getPluginsConfig } from "../utils";
 
 function App() {
-  const { connect, status, account, ethereum, chainId } = useMetaMask();
+  const { connect, status, account } = useMetaMask();
 
   const handleConnect = () => {
     if (status !== "connected") {
@@ -15,7 +13,7 @@ function App() {
       navigator.clipboard.writeText(account);
       notification.success({
         message: "Success",
-        duration: 20000,
+        duration: 1,
         description: `${account} Copied to Clipboard`,
       });
     }
@@ -28,18 +26,7 @@ function App() {
           {status === "connected" ? account : "Connect"}
         </Button>
       </Header>
-      {status === "connected" && chainId && account && (
-        <PolywrapProvider
-          //@ts-ignore
-          plugins={getPluginsConfig(
-            fromHex(chainId).toString(),
-            ethereum,
-            account
-          )}
-        >
-          <Axelar />
-        </PolywrapProvider>
-      )}
+      <Axelar />
     </Layout>
   );
 }
