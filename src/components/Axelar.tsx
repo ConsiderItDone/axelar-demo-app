@@ -3,8 +3,13 @@ import SendToken from "./SendToken";
 import { Content } from "antd/lib/layout/layout";
 import logo from "../images/logo.png";
 import Lines from "./Lines";
+import { PolywrapProvider } from "@polywrap/react";
+import { fromHex, getPluginsConfig } from "../utils";
+import { useConnectedMetaMask, useMetaMask } from "metamask-react";
 
 export default function Axelar() {
+  const { account, ethereum, chainId, status } = useMetaMask();
+
   return (
     <Content>
       <div
@@ -13,7 +18,7 @@ export default function Axelar() {
           alignContent: "center",
           justifyContent: "center",
           maxWidth: "1080px",
-          gap:'170px',
+          gap: "170px",
           margin: "100px auto 0",
         }}
       >
@@ -36,8 +41,19 @@ export default function Axelar() {
           padding: "20px",
         }}
       >
-        <GetDepositAddress />
-        <SendToken />
+        {status === "connected" && chainId && account && (
+          <PolywrapProvider
+            //@ts-ignore
+            plugins={getPluginsConfig(
+              fromHex(chainId).toString(),
+              ethereum,
+              account
+            )}
+          >
+            <GetDepositAddress />
+            <SendToken />
+          </PolywrapProvider>
+        )}
       </div>
     </Content>
   );
