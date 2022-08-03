@@ -1,6 +1,6 @@
 # Axelar Polywrap Integration demo
 
-![Example](./iu.png)
+![Example](./screenshot.png)
 
 ## [Live demo](https://axelar.consideritdone.tech/)
 
