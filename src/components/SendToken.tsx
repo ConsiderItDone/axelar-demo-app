@@ -43,7 +43,14 @@ export default function SendToken() {
 
   const network = useMemo(() => {
     if (chainId) {
-      return dataSrc.find((chain) => chain.chainId === chainId)!;
+      const supportedNetwork = dataSrc.find(
+        (chain) => chain.chainId === chainId
+      );
+      if (supportedNetwork) return supportedNetwork;
+      else {
+        notification.error({ message: "Network isn't supported" });
+        return dataSrc[0];
+      }
     }
     return dataSrc[0];
   }, [chainId]);
