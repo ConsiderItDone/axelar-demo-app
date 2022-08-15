@@ -49,6 +49,7 @@ export default function SendToken() {
       if (supportedNetwork) return supportedNetwork;
       else {
         notification.error({ message: "Network isn't supported" });
+        switchChain(dataSrc[0].chainId);
         return dataSrc[0];
       }
     }
